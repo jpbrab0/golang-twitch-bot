@@ -1,0 +1,1 @@
+ Neste exato momento estamos fazendo um bot para twitch com golang.
