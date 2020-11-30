@@ -6,7 +6,7 @@ import (
     "strings"
     "io/ioutil"
     "github.com/joho/godotenv"
-	"github.com/gempir/go-twitch-irc"
+	"github.com/gempir/go-twitch-irc/v2"
 )
 func getDotEnvVariable(key string) string {
 
