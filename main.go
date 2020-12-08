@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"os"
     "time"
-    "log"
+    //"log"
     "strings"
     "io/ioutil"
     "math/rand"
     "github.com/joho/godotenv"
 	"github.com/gempir/go-twitch-irc/v2"
-    "github.com/christopher-dG/go-obs-websocket"
+    //"github.com/christopher-dG/go-obs-websocket"
 )
 func getDotEnvVariable(key string) string {
 
@@ -26,12 +26,12 @@ func getDotEnvVariable(key string) string {
 
 func main(){
     rand.Seed(time.Now().UTC().UnixNano())
-    c := obsws.Client{Host: "localhost", Port: 4444}
+    // obs := obsws.Client{Host: "localhost", Port: 4444}
 
-    if err := c.Connect(); err != nil {
-        log.Fatal(err)
-	}
-	defer c.Disconnect()
+    // if err := obs.Connect(); err != nil {
+    //     log.Fatal(err)
+	// }
+	// defer obs.Disconnect()
 
     tokenBot := getDotEnvVariable("TOKEN_BOT")
     client := twitch.NewClient("brab0bot", tokenBot) 
@@ -82,6 +82,16 @@ func main(){
                 client.Say("jpbrab0", "O arquivo hoje.txt foi atualizado.")
             }
         }
+    })
+    client.OnUserNoticeMessage(func(message twitch.UserNoticeMessage){
+        switch message.MsgID {
+        case "sub":
+            client.Say("jpbrab0", "Valeu pelo sub! @"+message.User.Name)
+        case "resub":
+            client.Say("jpbrab0", "Valeu pelo sub! @"+message.User.Name)
+        case "raid":
+            client.Say("jpbrab0", "Valeu pela raid! @"+message.User.Name)
+       }
     })
     client.Join("jpbrab0")
     client.Connect()
